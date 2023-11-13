@@ -32,6 +32,7 @@ async function run() {
 
     const menuCollection = client.db("dhakaspiceDB").collection("fullmenu");
     const reviewsCollection = client.db("dhakaspiceDB").collection("reviews");
+    const cartsCollection = client.db("dhakaspiceDB").collection("carts");
 
 // menu item get
     app.get('/menu', async (req, res) => {
@@ -43,6 +44,26 @@ app.get('/reviews', async (req, res) => {
     const result = await reviewsCollection.find().toArray();
     res.send(result);
   })
+
+
+
+
+
+  // cart oparation
+
+  app.get('/cart', async (req, res) => {
+    const result = await cartsCollection.find().toArray();
+    res.send(result);
+  })
+
+
+  app.post('/cart' , async (req,res) =>{
+    const cartitem = req.body
+    const result = await cartsCollection.insertOne(cartitem)
+    res.send(result)
+  })
+
+
 
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
