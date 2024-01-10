@@ -261,43 +261,43 @@ async function run() {
 
     // admin home matarial
 
-  //   app.get('/adminstats', async (req, res) => {
-  //     try {
-  //         // Count the total number of users
-  //         const users = await usersCollection.estimatedDocumentCount();
+    app.get('/adminstats', async (req, res) => {
+      try {
+          // Count the total number of users
+          const users = await usersCollection.estimatedDocumentCount();
   
-  //         // Count the total number of menu items
-  //         const totalItem = await menuCollection.estimatedDocumentCount();
+          // Count the total number of menu items
+          const totalItem = await menuCollection.estimatedDocumentCount();
   
-  //         // Count the total number of orders
-  //         const totalOrder = await paymentCollection.estimatedDocumentCount();
+          // Count the total number of orders
+          const totalOrder = await paymentCollection.estimatedDocumentCount();
   
-  //         // Calculate the total revenue by summing the 'price' field in paymentCollection
-  //         const result = await paymentCollection.aggregate([
-  //             {
-  //                 $group: {
-  //                     _id: null,
-  //                     totalRevenue: {
-  //                         $sum: '$price'
-  //                     }
-  //                 }
-  //             }
-  //         ]).toArray();
+          // Calculate the total revenue by summing the 'price' field in paymentCollection
+          const result = await paymentCollection.aggregate([
+              {
+                  $group: {
+                      _id: null,
+                      totalRevenue: {
+                          $sum: '$price'
+                      }
+                  }
+              }
+          ]).toArray();
   
-  //         const revenue = result.length > 0 ? result[0].totalRevenue : 0;
+          const revenue = result.length > 0 ? result[0].totalRevenue : 0;
   
-  //         // Send the statistics as a JSON response
-  //         res.send({
-  //             users,
-  //             totalItem,
-  //             totalOrder,
-  //             revenue
-  //         });
-  //     } catch (error) {
-  //         console.error('Error fetching admin statistics:', error);
-  //         res.status(500).send({ message: 'Internal Server Error' });
-  //     }
-  // });
+          // Send the statistics as a JSON response
+          res.send({
+              users,
+              totalItem,
+              totalOrder,
+              revenue
+          });
+      } catch (error) {
+          console.error('Error fetching admin statistics:', error);
+          res.status(500).send({ message: 'Internal Server Error' });
+      }
+  });
   
 
 
